@@ -1,12 +1,43 @@
-#div_main {
+html,
+body {
     width: 100%;
     height: 100%;
+}
+
+#div_header {
+    width: 100%;
+    height: 70px;
+    margin: 0 auto;
+}
+
+#preview {
+    width: 40%;
+    height: 60px;
+    font-weight: bold;
+    border: 3px solid black;
+    background-color: red;
     float: left;
+}
+
+#points {
+    width: 40%;
+    height: 60px;
+    border: 3px solid black;
+    font-weight: bold;
+    background-color: red;
+    float: left;
+}
+
+#div_main {
+    width: 500px;
+    height: 500px;
     position: relative;
 }
 
 table {
     border-collapse: collapse;
+    width: 500px;
+    height: 500px;
 }
 
 td {
@@ -81,28 +112,6 @@ div.yellow {
     border: 1px solid black;
 }
 
-#preview {
-    float: left;
-    font-size: 20px;
-    overflow: hidden;
-    border: 3px solid black;
-    width: 230px;
-    height: 60px;
-    padding: 3px;
-}
-
-#points {
-    width: 230px;
-    height: 60px;
-    padding: 3px;
-    border: 3px solid black;
-    float: left;
-    margin-top: 75px;
-    margin-left: -242px;
-    font-size: 32px;
-    font-weight: bold;
-}
-
 #description {
     width: 250px;
     height: 360px;
@@ -119,6 +128,6 @@ div.yellow {
     font-weight: bold;
     color: red;
     position: absolute;
-    top: 55%;
-    left: 10%;
+    top: 50%;
+    left: 500%;
 }

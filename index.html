@@ -29,6 +29,16 @@
 
             }
             var flag = true;
+            var header = document.createElement("div")
+            header.id = "div_header";
+            document.body.appendChild(header);
+            var p_preview = document.createElement("div");
+            p_preview.id = "p_preview";
+            header.appendChild(p_preview);
+            p_preview.innerText = "Następne: "
+            var p_points = document.createElement("div");
+            p_points.id = "p_points";
+            header.appendChild(p_points);
             var div = document.createElement("div");
             div.id = "div_main";
             document.body.appendChild(div);
@@ -47,8 +57,7 @@
 
             var div2 = document.createElement("div")
             div2.id = ("preview");
-            document.body.appendChild(div2);
-            div2.innerText = "Następne : ";
+            header.appendChild(div2);
             var div_description = document.createElement("div")
             div_description.id = ("description");
             div.appendChild(div_description);
@@ -88,51 +97,51 @@
             var connection = false;
             var div3 = document.createElement("div");
             div3.id = ("points");
-            document.body.appendChild(div3);
+            header.appendChild(div3);
 
             function f_rewrite() {
                 for (var i = 0; i < n; i++) {
                     for (var ii = 0; ii < n; ii++) {
-                        var okienko = document.getElementById(i + "_" + ii);
-                        okienko.innerText = tab[i][ii];
+                        var cell_0 = document.getElementById(i + "_" + ii);
+                        cell_0.innerText = tab[i][ii];
                         var colors = document.createElement("div");
                         if (tab[i][ii] == 0) {
-                            okienko.innerText = "";
+                            cell_0.innerText = "";
                         }
                         if (tab[i][ii] == -1) { // ORANGE
                             colors.className = "orange";
-                            okienko.innerText = null;
-                            okienko.appendChild(colors);
+                            cell_0.innerText = null;
+                            cell_0.appendChild(colors);
                         }
                         if (tab[i][ii] == -2) { // GREEN
                             colors.className = "green";
-                            okienko.innerText = null;
-                            okienko.appendChild(colors);
+                            cell_0.innerText = null;
+                            cell_0.appendChild(colors);
                         }
                         if (tab[i][ii] == -3) { // BLUE
                             colors.className = "blue";
-                            okienko.innerText = null;
-                            okienko.appendChild(colors);
+                            cell_0.innerText = null;
+                            cell_0.appendChild(colors);
                         }
                         if (tab[i][ii] == -4) { // RED
                             colors.className = "red";
-                            okienko.innerText = null;
-                            okienko.appendChild(colors);
+                            cell_0.innerText = null;
+                            cell_0.appendChild(colors);
                         }
                         if (tab[i][ii] == -5) { // GREY
                             colors.className = "grey";
-                            okienko.innerText = null;
-                            okienko.appendChild(colors);
+                            cell_0.innerText = null;
+                            cell_0.appendChild(colors);
                         }
                         if (tab[i][ii] == -6) { // PINK
                             colors.className = "pink";
-                            okienko.innerText = null;
-                            okienko.appendChild(colors);
+                            cell_0.innerText = null;
+                            cell_0.appendChild(colors);
                         }
                         if (tab[i][ii] == -7) { // YELLOW
                             colors.className = "yellow";
-                            okienko.innerText = null;
-                            okienko.appendChild(colors);
+                            cell_0.innerText = null;
+                            cell_0.appendChild(colors);
                         }
                     }
                 }
@@ -207,9 +216,9 @@
                         if (tab[i][ii] != 0) {
                             if (((i == 8 && ii != 0 && ii != 8) && (tab[i - 1][ii] == 0 || tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0)) || ((i == 8 && ii == 8) && (tab[i - 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((i == 8 && ii == 0) && (tab[i - 1][ii] == 0 || tab[i][ii + 1] == 0)) || ((ii == 8 && i != 0 && i != 8) && (tab[i - 1][ii] == 0 || tab[i + 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((ii == 0 && i != 0 && i != 8) && (tab[i - 1][ii] == 0 || tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0)) || ((i == 0 && ii != 0 && ii != 8) && (tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0)) || ((i == 0 && ii == 8) && (tab[i + 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((i == 0 && ii == 0) && (tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0)) || (i != 0 && i != 8 && ii != 0 && ii != 8) && (tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0 || tab[i + 1][ii] == 0 || tab[i - 1][ii] == 0)) { // zeby nie dalo sie clicknac kulki ktora nie ma mozliwego ruchu
 
-                                var okienko = document.getElementById(i + "_" + ii);
+                                var cell_0 = document.getElementById(i + "_" + ii);
 
-                                okienko.onclick = function() {
+                                cell_0.onclick = function() {
                                     click++;
                                     if (click == 1) {
                                         var s = this.id;
@@ -221,8 +230,8 @@
                                         actual.style.marginLeft = "2.5px";
                                         tab_t.push(s);
 
-                                        var okienko8 = document.getElementById(s)
-                                        okienko8.onmouseover = function() {
+                                        var cell_5 = document.getElementById(s)
+                                        cell_5.onmouseover = function() {
                                             for (var by = 0; by < ktabn.length; by++) {
                                                 var cell_6 = document.getElementById(ktabn[by]);
                                                 cell_6.style.backgroundColor = "white";
@@ -257,7 +266,6 @@
 
                                         for (var i = 0; i < n; i++) {
                                             for (var ii = 0; ii < n; ii++) {
-
 
                                                 if (((i == 8 && ii != 0 && ii != 8) && (tab[i - 1][ii] == 0 || tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0)) || ((i == 8 && ii == 8) && (tab[i - 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((i == 8 && ii == 0) && (tab[i - 1][ii] == 0 || tab[i][ii + 1] == 0)) || ((ii == 8 && i != 0 && i != 8) && (tab[i - 1][ii] == 0 || tab[i + 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((ii == 0 && i != 0 && i != 8) && (tab[i - 1][ii] == 0 || tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0)) || ((i == 0 && ii != 0 && ii != 8) && (tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0)) || ((i == 0 && ii == 8) && (tab[i + 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((i == 0 && ii == 0) && (tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0)) || (i != 0 && i != 8 && ii != 0 && ii != 8) && (tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0 || tab[i + 1][ii] == 0 || tab[i - 1][ii] == 0)) {
                                                     var cell_7 = document.getElementById(i + "_" + ii);
@@ -324,8 +332,8 @@
 
                                                 }
                                                 if (tab[i][ii] == 0) {
-                                                    var okienko = document.getElementById(i + "_" + ii);
-                                                    okienko.onclick = function() {
+                                                    var cell_9 = document.getElementById(i + "_" + ii);
+                                                    cell_9.onclick = function() {
                                                         var s = this.id;
                                                         mpozx = (s.split("_", 1));
                                                         mpozy = (s.split("_", 2));
@@ -333,8 +341,8 @@
 
                                                         for (var p = 0; p < n; p++) {
                                                             for (var pp = 0; pp < n; pp++) {
-                                                                var okienko = document.getElementById(p + "_" + pp);
-                                                                okienko.onclick = function() {
+                                                                var cell_9 = document.getElementById(p + "_" + pp);
+                                                                cell_9.onclick = function() {
                                                                     return false;
                                                                 }
                                                             }
@@ -370,7 +378,7 @@
                     }
 
                 }
-            } //koniec sim
+            }
             f_count();
 
             function f_find_way_0() {

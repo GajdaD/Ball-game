@@ -1,6 +1,6 @@
-#glowny {
-    width: 500px;
-    height: 500px;
+#div_main {
+    width: 100%;
+    height: 100%;
     float: left;
     position: relative;
 }
@@ -103,7 +103,7 @@ div.yellow {
     font-weight: bold;
 }
 
-#opis {
+#description {
     width: 250px;
     height: 360px;
     position: absolute;
@@ -114,7 +114,7 @@ div.yellow {
     padding: 3px;
 }
 
-#koniec {
+#finish_alert {
     font-size: 40px;
     font-weight: bold;
     color: red;

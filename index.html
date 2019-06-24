@@ -3,20 +3,22 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ball game by GajdaD</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
-            var gdziejestm = 0;
-            var kgdziejestm = 0;
-            var tab = []; // tablica z wartosciami 
-            var tab2 = []; // tablica z przebyta droga 
+            var poz_where = 0;
+            var poz_where_k = 0;
+            var tab = [];
+            var tab2 = [];
             var ktab = [];
             var ktab2 = [];
-            var n = 9; // ilosc komorek n x n
-            var klik = 0; // klik do S i M
+            var n = 9;
+            var click = 0;
             for (var i = 0; i < n; i++) {
                 tab[i] = [];
                 tab2[i] = [];
@@ -26,15 +28,13 @@
                 }
 
             }
-            console.log(tab);
-            console.log(tab2);
-            var flaga = true;
-            var div = document.createElement("div"); // glowny div 
-            div.id = "glowny";
+            var flag = true;
+            var div = document.createElement("div");
+            div.id = "div_main";
             document.body.appendChild(div);
-            var table = document.createElement("table"); // tabela 
+            var table = document.createElement("table");
             div.appendChild(table);
-            for (var i = 0; i < n; i++) { // stworzenie tabelki
+            for (var i = 0; i < n; i++) {
                 var tr = document.createElement("tr");
                 table.appendChild(tr);
                 tr.id = i;
@@ -49,35 +49,35 @@
             div2.id = ("preview");
             document.body.appendChild(div2);
             div2.innerText = "Następne : ";
-            var div69 = document.createElement("div")
-            div69.id = ("opis");
-            div.appendChild(div69);
-            div69.innerText += "Gra polega na układaniu kulek w rzędzie. Gracz układa po pięć (lub więcej) kulek o tym samym kolorze w rzędzie (poziomo, pionowo, bądź po skosie). Gracz może przemieszczać kulki na dowolne pole, do którego może dojść kulka (kulka nie porusza się po skosie).";
-            var tab3 = []; //tablica do preview kulek 
+            var div_description = document.createElement("div")
+            div_description.id = ("description");
+            div.appendChild(div_description);
+            div_description.innerText += "Gra polega na układaniu kulek w rzędzie. Gracz układa po pięć (lub więcej) kulek o tym samym kolorze w rzędzie (poziomo, pionowo, bądź po skosie). Gracz może przemieszczać kulki na dowolne pole, do którego może dojść kulka (kulka nie porusza się po skosie).";
+            var tab3 = [];
             for (var z = 0; z < 3; z++) {
-                var prevk = document.createElement("div");
-                div2.appendChild(prevk);
-                prevk.style.display = "inline-block";
-                prevk.style.margin = "5px";
-                prevk.style.cssFloat = "right";
-                tab3.push(prevk);
+                var preview_k = document.createElement("div");
+                div2.appendChild(preview_k);
+                preview_k.style.display = "inline-block";
+                preview_k.style.margin = "5px";
+                preview_k.style.cssFloat = "right";
+                tab3.push(preview_k);
             }
-            var ilekulek = 0;
-            var zakonczenie = false;
+            var count_balls = 0;
+            var finish_game = false;
             var div4 = document.createElement("div")
-            div4.id = ("koniec");
+            div4.id = ("finish_alert");
             document.body.appendChild(div4);
 
-            function ilekul() {
-                ilekulek = 0
+            function f_count() {
+                count_balls = 0
                 for (var iii = 0; iii < n; iii++) {
                     for (var iiii = 0; iiii < n; iiii++) {
                         if (tab[iii][iiii] != 0) {
-                            ilekulek += 1;
+                            count_balls += 1;
                         }
                     }
                 }
-                if (zakonczenie == true) {
+                if (finish_game == true) {
                     div4.innerText += "KONIEC";
                 } else {
                     sim();
@@ -85,81 +85,81 @@
 
             }
 
-            var zbicie = false;
+            var connection = false;
             var div3 = document.createElement("div");
             div3.id = ("points");
             document.body.appendChild(div3);
 
-            function wpisywanie() {
+            function f_rewrite() {
                 for (var i = 0; i < n; i++) {
                     for (var ii = 0; ii < n; ii++) {
-                        var okienko = document.getElementById(i + "_" + ii); // znalezenie id 
-                        okienko.innerText = tab[i][ii]; // wypisanie danych z tabeli do tabeli widocznej
-                        var kolory = document.createElement("div"); // stworzenie diva do kulek
-                        if (tab[i][ii] == 0) { // jesli 0 to puste pole
+                        var okienko = document.getElementById(i + "_" + ii);
+                        okienko.innerText = tab[i][ii];
+                        var colors = document.createElement("div");
+                        if (tab[i][ii] == 0) {
                             okienko.innerText = "";
                         }
                         if (tab[i][ii] == -1) { // ORANGE
-                            kolory.className = "orange";
+                            colors.className = "orange";
                             okienko.innerText = null;
-                            okienko.appendChild(kolory);
+                            okienko.appendChild(colors);
                         }
                         if (tab[i][ii] == -2) { // GREEN
-                            kolory.className = "green";
+                            colors.className = "green";
                             okienko.innerText = null;
-                            okienko.appendChild(kolory);
+                            okienko.appendChild(colors);
                         }
                         if (tab[i][ii] == -3) { // BLUE
-                            kolory.className = "blue";
+                            colors.className = "blue";
                             okienko.innerText = null;
-                            okienko.appendChild(kolory);
+                            okienko.appendChild(colors);
                         }
                         if (tab[i][ii] == -4) { // RED
-                            kolory.className = "red";
+                            colors.className = "red";
                             okienko.innerText = null;
-                            okienko.appendChild(kolory);
+                            okienko.appendChild(colors);
                         }
                         if (tab[i][ii] == -5) { // GREY
-                            kolory.className = "grey";
+                            colors.className = "grey";
                             okienko.innerText = null;
-                            okienko.appendChild(kolory);
+                            okienko.appendChild(colors);
                         }
                         if (tab[i][ii] == -6) { // PINK
-                            kolory.className = "pink";
+                            colors.className = "pink";
                             okienko.innerText = null;
-                            okienko.appendChild(kolory);
+                            okienko.appendChild(colors);
                         }
                         if (tab[i][ii] == -7) { // YELLOW
-                            kolory.className = "yellow";
+                            colors.className = "yellow";
                             okienko.innerText = null;
-                            okienko.appendChild(kolory);
+                            okienko.appendChild(colors);
                         }
                     }
                 }
             }
             var tabkol = []
 
-            function randomx() { // losowe x 
-                if (flaga == true) { // zrobi sie tylko raz / przy pierwszym losowaniu kulek 
+            function randomx() {
+                if (flag == true) {
                     for (var e = 0; e < 3; e++) {
-                        var kolor = Math.floor((Math.random() * 7) + 1); // losowanie jednego koloru z 7
-                        tabkol.push(kolor)
-                        flaga = false;
+                        var color = Math.floor((Math.random() * 7) + 1);
+                        tabkol.push(color)
+                        flag = false;
                     }
                 }
-                for (var w = 0; w < 3; w++) { // petla robi sie 3 razy bo co ruch dochodza 3 kulki
+                for (var w = 0; w < 3; w++) {
                     var a = Math.floor((Math.random() * (n)));
                     var b = Math.floor((Math.random() * (n)));
-                    while (tab[a][b] != 0) { // petla zeby kulki wpisywaly sie w wolne pola
+                    while (tab[a][b] != 0) {
                         var a = Math.floor((Math.random() * (n)));
                         var b = Math.floor((Math.random() * (n)));
                     }
-                    tab[a][b] = (tabkol[w] * (-1)); // wpisanie koloru
+                    tab[a][b] = (tabkol[w] * (-1));
                 }
-                tabkol.splice(0, 3); // wyczyszczenie tablicy
+                tabkol.splice(0, 3);
                 for (var c = 0; c < 3; c++) {
-                    var kolor = Math.floor((Math.random() * 7) + 1); // losowanie jednego koloru z 7
-                    tabkol.push(kolor); // wrzucenie do tablicy kolorow
+                    var color = Math.floor((Math.random() * 7) + 1);
+                    tabkol.push(color);
                 }
                 for (var h = 0; h < 3; h++) {
                     if (tabkol[h] == 1) { // ORANGE
@@ -185,9 +185,9 @@
                     }
                 };
 
-            } //koniec randomx 
+            }
             randomx();
-            wpisywanie();
+            f_rewrite();
             var spozx = 0;
             var spozy = 0;
             var mpozx = 0;
@@ -195,49 +195,46 @@
             var kmpozx = 0;
             var kmpozy = 0;
             var actual = 0;
-            var tgucci = []; //tablica do 
+            var tab_t = [];
+
             function sim() {
                 for (var i = 0; i < n; i++) {
                     for (var ii = 0; ii < n; ii++) {
-                        if (tab[i][ii] == 0) // jesli jest 0 to nie robimy nic czyli nie mozna kliknac
-                        {
+                        if (tab[i][ii] == 0) {
                             0;
                         }
 
+                        if (tab[i][ii] != 0) {
+                            if (((i == 8 && ii != 0 && ii != 8) && (tab[i - 1][ii] == 0 || tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0)) || ((i == 8 && ii == 8) && (tab[i - 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((i == 8 && ii == 0) && (tab[i - 1][ii] == 0 || tab[i][ii + 1] == 0)) || ((ii == 8 && i != 0 && i != 8) && (tab[i - 1][ii] == 0 || tab[i + 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((ii == 0 && i != 0 && i != 8) && (tab[i - 1][ii] == 0 || tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0)) || ((i == 0 && ii != 0 && ii != 8) && (tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0)) || ((i == 0 && ii == 8) && (tab[i + 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((i == 0 && ii == 0) && (tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0)) || (i != 0 && i != 8 && ii != 0 && ii != 8) && (tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0 || tab[i + 1][ii] == 0 || tab[i - 1][ii] == 0)) { // zeby nie dalo sie clicknac kulki ktora nie ma mozliwego ruchu
 
-                        if (tab[i][ii] != 0) { // jesli nie to dajemy onclicka / czyli onclick dziala na kulkach
-                            if (((i == 8 && ii != 0 && ii != 8) && (tab[i - 1][ii] == 0 || tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0)) || ((i == 8 && ii == 8) && (tab[i - 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((i == 8 && ii == 0) && (tab[i - 1][ii] == 0 || tab[i][ii + 1] == 0)) || ((ii == 8 && i != 0 && i != 8) && (tab[i - 1][ii] == 0 || tab[i + 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((ii == 0 && i != 0 && i != 8) && (tab[i - 1][ii] == 0 || tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0)) || ((i == 0 && ii != 0 && ii != 8) && (tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0)) || ((i == 0 && ii == 8) && (tab[i + 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((i == 0 && ii == 0) && (tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0)) || (i != 0 && i != 8 && ii != 0 && ii != 8) && (tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0 || tab[i + 1][ii] == 0 || tab[i - 1][ii] == 0)) { // zeby nie dalo sie kliknac kulki ktora nie ma mozliwego ruchu
+                                var okienko = document.getElementById(i + "_" + ii);
 
-                                var okienko = document.getElementById(i + "_" + ii); // znalezenie id 
-
-                                okienko.onclick = function() { // funckja on click
-                                    klik++;
-                                    if (klik == 1) { //wpisanie do tablicy S
+                                okienko.onclick = function() {
+                                    click++;
+                                    if (click == 1) {
                                         var s = this.id;
                                         spozx = (s.split("_", 1));
                                         spozy = (s.split("_", 2));
                                         actual = this.querySelector("div");
-                                        actual.style.width = "45px"; // ustawianie powiekszenia kliknietego
+                                        actual.style.width = "45px";
                                         actual.style.height = "45px";
                                         actual.style.marginLeft = "2.5px";
-                                        tgucci.push(s);
-
-                                        ////////  PREVIEW                    
+                                        tab_t.push(s);
 
                                         var okienko8 = document.getElementById(s)
                                         okienko8.onmouseover = function() {
-                                                for (var by = 0; by < ktabn.length; by++) {
-                                                    var okienko66 = document.getElementById(ktabn[by]); // znalezenie id 
-                                                    okienko66.style.backgroundColor = "white";
-                                                }
+                                            for (var by = 0; by < ktabn.length; by++) {
+                                                var cell_6 = document.getElementById(ktabn[by]);
+                                                cell_6.style.backgroundColor = "white";
                                             }
-                                            ////////////////////////////////////  OVER KLIK
+                                        }
+
                                         for (var s = 0; s < n; s++) {
                                             for (var ss = 0; ss < n; ss++) {
                                                 if (tab[s][ss] == 0) {
-                                                    var okienko1 = document.getElementById(s + "_" + ss);
+                                                    var cell_1 = document.getElementById(s + "_" + ss);
 
-                                                    okienko1.onmouseover = function() {
+                                                    cell_1.onmouseover = function() {
                                                         for (var s = 0; s < n; s++) {
                                                             ktab[s] = tab[s].slice(0);
                                                             ktab2[s] = tab[s].slice(0);
@@ -250,7 +247,7 @@
                                                         kmpozx = (g.split("_", 1));
                                                         kmpozy = (g.split("_", 2));
                                                         ktab[kmpozx][kmpozy[1]] = "M";
-                                                        droga2();
+                                                        f_way();
                                                     }
 
                                                 }
@@ -258,73 +255,69 @@
                                             }
                                         }
 
-
-                                        ///////////////
-
                                         for (var i = 0; i < n; i++) {
                                             for (var ii = 0; ii < n; ii++) {
 
 
-                                                if (((i == 8 && ii != 0 && ii != 8) && (tab[i - 1][ii] == 0 || tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0)) || ((i == 8 && ii == 8) && (tab[i - 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((i == 8 && ii == 0) && (tab[i - 1][ii] == 0 || tab[i][ii + 1] == 0)) || ((ii == 8 && i != 0 && i != 8) && (tab[i - 1][ii] == 0 || tab[i + 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((ii == 0 && i != 0 && i != 8) && (tab[i - 1][ii] == 0 || tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0)) || ((i == 0 && ii != 0 && ii != 8) && (tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0)) || ((i == 0 && ii == 8) && (tab[i + 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((i == 0 && ii == 0) && (tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0)) || (i != 0 && i != 8 && ii != 0 && ii != 8) && (tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0 || tab[i + 1][ii] == 0 || tab[i - 1][ii] == 0)) { // przleaczenie miedzy wybranymi kulkami
-                                                    var okienko7 = document.getElementById(i + "_" + ii);
-                                                    okienko7.onclick = function() { // zeby przelaczac miedzy kliknietymi s 
+                                                if (((i == 8 && ii != 0 && ii != 8) && (tab[i - 1][ii] == 0 || tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0)) || ((i == 8 && ii == 8) && (tab[i - 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((i == 8 && ii == 0) && (tab[i - 1][ii] == 0 || tab[i][ii + 1] == 0)) || ((ii == 8 && i != 0 && i != 8) && (tab[i - 1][ii] == 0 || tab[i + 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((ii == 0 && i != 0 && i != 8) && (tab[i - 1][ii] == 0 || tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0)) || ((i == 0 && ii != 0 && ii != 8) && (tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0)) || ((i == 0 && ii == 8) && (tab[i + 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((i == 0 && ii == 0) && (tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0)) || (i != 0 && i != 8 && ii != 0 && ii != 8) && (tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0 || tab[i + 1][ii] == 0 || tab[i - 1][ii] == 0)) {
+                                                    var cell_7 = document.getElementById(i + "_" + ii);
+                                                    cell_7.onclick = function() {
 
                                                         for (var by = 0; by < ktabn.length; by++) {
-                                                            var okienko66 = document.getElementById(ktabn[by]); // znalezenie id 
-                                                            okienko66.style.backgroundColor = "white";
+                                                            var cell_6 = document.getElementById(ktabn[by]);
+                                                            cell_6.style.backgroundColor = "white";
                                                         }
 
-                                                        actual.style.width = "35px"; // ustawianie powiekszenia kliknietego
+                                                        actual.style.width = "35px";
                                                         actual.style.height = "35px";
                                                         actual.style.marginLeft = "7.5px";
                                                         var g = this.id;
 
-                                                        var okienko81 = document.getElementById(g)
-                                                        okienko81.onmouseover = function() {
+                                                        var cell_8 = document.getElementById(g)
+                                                        cell_8.onmouseover = function() {
                                                             for (var by = 0; by < ktabn.length; by++) {
-                                                                var okienko81 = document.getElementById(ktabn[by]); // znalezenie id 
-                                                                okienko81.style.backgroundColor = "white";
+                                                                var cell_8 = document.getElementById(ktabn[by]);
+                                                                cell_8.style.backgroundColor = "white";
                                                             }
                                                         }
                                                         spozx = (g.split("_", 1));
                                                         spozy = (g.split("_", 2));
                                                         actual = this.querySelector("div");
-                                                        actual.style.width = "45px"; // ustawianie powiekszenia kliknietego
+                                                        actual.style.width = "45px";
                                                         actual.style.height = "45px";
                                                         actual.style.marginLeft = "2.5px";
-                                                        tgucci.push(g);
+                                                        tab_t.push(g);
 
-                                                        if (tgucci[(tgucci.length) - 1] == tgucci[(tgucci.length) - 2]) { //odklikniecie
+                                                        if (tab_t[(tab_t.length) - 1] == tab_t[(tab_t.length) - 2]) {
 
-                                                            var ghj = document.getElementById(tgucci[(tgucci.length) - 1]);
-                                                            actual2 = ghj.querySelector("div");
-                                                            actual2.style.width = "35px"; // ustawianie powiekszenia kliknietego
-                                                            actual2.style.height = "35px";
-                                                            actual2.style.marginLeft = "7.5px";
-                                                            spozx = 0; // zresetowanie zmiennych
+                                                            var actual_1 = document.getElementById(tab_t[(tab_t.length) - 1]);
+                                                            actual_2 = actual_1.querySelector("div");
+                                                            actual_2.style.width = "35px";
+                                                            actual_2.style.height = "35px";
+                                                            actual_2.style.marginLeft = "7.5px";
+                                                            spozx = 0;
                                                             spozy = 0;
-                                                            klik = 0;
+                                                            click = 0;
                                                             for (var p = 0; p < n; p++) {
                                                                 for (var pp = 0; pp < n; pp++) {
-                                                                    var okienko0 = document.getElementById(p + "_" + pp);
-                                                                    okienko0.onclick = function() {
+                                                                    var cell_2 = document.getElementById(p + "_" + pp);
+                                                                    cell_2.onclick = function() {
                                                                         return false;
                                                                     }
                                                                 }
-                                                            } // wylaczenie funkcji on click
-                                                            //////////////////////////////////////////////////////// WYLACZENIE OVERKLIKA
+                                                            }
                                                             for (var s = 0; s < n; s++) {
                                                                 for (var ss = 0; ss < n; ss++) {
 
-                                                                    var okienko1 = document.getElementById(s + "_" + ss);
-                                                                    okienko1.onmouseover = function() {
+                                                                    var cell_1 = document.getElementById(s + "_" + ss);
+                                                                    cell_1.onmouseover = function() {
                                                                         0;
 
                                                                     }
                                                                 }
                                                             };
 
-                                                            ilekul();
+                                                            f_count();
                                                         }
 
                                                     }
@@ -340,28 +333,27 @@
 
                                                         for (var p = 0; p < n; p++) {
                                                             for (var pp = 0; pp < n; pp++) {
-                                                                var okienko = document.getElementById(p + "_" + pp); // znalezenie id 
+                                                                var okienko = document.getElementById(p + "_" + pp);
                                                                 okienko.onclick = function() {
-                                                                        return false;
-                                                                    } // wylaczenie funkcji on click
+                                                                    return false;
+                                                                }
                                                             }
                                                         }
-                                                        klik = 0;
+                                                        click = 0;
 
-                                                        //////////////////////////////////////////////////////// WYLACZENIE OVERKLIKA
                                                         for (var s = 0; s < n; s++) {
                                                             for (var ss = 0; ss < n; ss++) {
 
-                                                                var okienko1 = document.getElementById(s + "_" + ss);
-                                                                okienko1.onmouseover = function() {
+                                                                var cell_1 = document.getElementById(s + "_" + ss);
+                                                                cell_1.onmouseover = function() {
                                                                     0;
 
                                                                 }
                                                             }
                                                         };
-                                                        spraw();
-                                                        droga();
-                                                        spraw();
+                                                        f_check();
+                                                        f_way_do();
+                                                        f_check();
                                                     }
 
                                                 }
@@ -379,240 +371,235 @@
 
                 }
             } //koniec sim
-            ilekul();
+            f_count();
 
-            function znajdzm() {
+            function f_find_way_0() {
                 for (var i = 0; i < n; i++) {
                     for (var ii = 0; ii < n; ii++) {
                         if (tab[i][ii] == "M") {
-                            gdziejestm = (i + "_" + ii);
+                            poz_where = (i + "_" + ii);
                         }
                     }
                 }
             }
 
-            function kznajdzm() {
+            function f_find_way() {
                 for (var i = 0; i < n; i++) {
                     for (var ii = 0; ii < n; ii++) {
                         if (ktab[i][ii] == "M") {
-                            kgdziejestm = (i + "_" + ii);
+                            poz_where_k = (i + "_" + ii);
                         }
                     }
                 }
             }
 
+            var balls_count_0 = 0
 
-            var liczba = 0
-
-            function droga() {
-                var tabd = []; // wpisywanie znalezionych liczb
-                var tabn = []; // najkrotsza droga 
-                znajdzm();
-                liczba++;
+            function f_way_do() {
+                var tabd = [];
+                var tabn = [];
+                f_find_way_0();
+                balls_count_0++;
                 spozx = parseInt(spozx);
                 spozy = parseInt(spozy[1]);
                 mpozx = parseInt(mpozx);
                 mpozy = parseInt(mpozy[1]);
                 tabd.push([spozx, spozy])
 
-                if (spozx != 0 && tab[spozx - 1][spozy] == 0) { // do gory 
-                    tab[spozx - 1][spozy] = liczba;
-                    tab2[spozx - 1][spozy] = spozx + "_" + spozy; //wpisanie do tab2
+                if (spozx != 0 && tab[spozx - 1][spozy] == 0) {
+                    tab[spozx - 1][spozy] = balls_count_0;
+                    tab2[spozx - 1][spozy] = spozx + "_" + spozy;
                     tabd.push([spozx - 1, spozy])
                 }
                 if (spozx != 0 && tab[spozx - 1][spozy] == "M") {
-                    console.log("DROGA")
+
                     tabn = spozx + "_" + spozy + "," + (spozx - 1) + "_" + spozy;
                 }
-                if (spozx != 8 && tab[spozx + 1][spozy] == 0) { // w dol
-                    tab[spozx + 1][spozy] = liczba;
-                    tab2[spozx + 1][spozy] = spozx + "_" + spozy; //wpisanie do tab2
+                if (spozx != 8 && tab[spozx + 1][spozy] == 0) {
+                    tab[spozx + 1][spozy] = balls_count_0;
+                    tab2[spozx + 1][spozy] = spozx + "_" + spozy;
                     tabd.push([spozx + 1, spozy]);
                 }
                 if (spozx != 8 && tab[spozx + 1][spozy] == "M") {
-                    console.log("DROGA")
+
                     tabn = spozx + "_" + spozy + "," + (spozx + 1) + "_" + spozy;
                 }
-                if (spozy != 0 && tab[spozx][spozy - 1] == 0) { // w lewo
-                    tab[spozx][spozy - 1] = liczba;
-                    tab2[spozx][spozy - 1] = spozx + "_" + spozy; //wpisanie do tab2
+                if (spozy != 0 && tab[spozx][spozy - 1] == 0) {
+                    tab[spozx][spozy - 1] = balls_count_0;
+                    tab2[spozx][spozy - 1] = spozx + "_" + spozy;
                     tabd.push([spozx, spozy - 1]);
                 }
                 if (spozy != 0 && tab[spozx][spozy - 1] == "M") {
-                    console.log("DROGA")
+
                     tabn = spozx + "_" + spozy + "," + spozx + "_" + (spozy - 1);
                 }
-                if (spozy != 8 && tab[spozx][spozy + 1] == 0) { // w prawo
-                    tab[spozx][spozy + 1] = liczba;
-                    tab2[spozx][spozy + 1] = spozx + "_" + spozy; //wpisanie do tab2
+                if (spozy != 8 && tab[spozx][spozy + 1] == 0) {
+                    tab[spozx][spozy + 1] = balls_count_0;
+                    tab2[spozx][spozy + 1] = spozx + "_" + spozy;
                     tabd.push([spozx, spozy + 1]);
 
                 }
                 if (spozy != 8 && tab[spozx][spozy + 1] == "M") {
-                    console.log("DROGA")
+
                     tabn = spozx + "_" + spozy + "," + spozx + "_" + (spozy + 1);
                 }
                 if (tabn == 0) {
                     for (var l = 0; l < tabd.length; l++) {
-                        if (tabd[l][0] != 0 && tab[tabd[l][0] - 1][tabd[l][1]] == 0) { // do gory
+                        if (tabd[l][0] != 0 && tab[tabd[l][0] - 1][tabd[l][1]] == 0) {
                             tab[tabd[l][0] - 1][tabd[l][1]] = tab[tabd[l][0]][tabd[l][1]] + 1;
-                            tab2[tabd[l][0] - 1][tabd[l][1]] = tab2[tabd[l][0]][tabd[l][1]] + "," + (tabd[l][0]) + "_" + tabd[l][1]; //wpisanie do tab2
+                            tab2[tabd[l][0] - 1][tabd[l][1]] = tab2[tabd[l][0]][tabd[l][1]] + "," + (tabd[l][0]) + "_" + tabd[l][1];
                             tabd.push([tabd[l][0] - 1, tabd[l][1]]);
                         }
-                        if (tabd[l][0] != 8 && tab[tabd[l][0] + 1][tabd[l][1]] == 0) { // w dol
+                        if (tabd[l][0] != 8 && tab[tabd[l][0] + 1][tabd[l][1]] == 0) {
                             tab[tabd[l][0] + 1][tabd[l][1]] = tab[tabd[l][0]][tabd[l][1]] + 1;
                             tab2[tabd[l][0] + 1][tabd[l][1]] = tab2[tabd[l][0]][tabd[l][1]] + "," + (tabd[l][0]) + "_" + tabd[l][1];
                             tabd.push([tabd[l][0] + 1, tabd[l][1]]);
                         }
-                        if (tabd[l][1] != 8 && tab[tabd[l][0]][tabd[l][1] + 1] == 0) { // w prawo
+                        if (tabd[l][1] != 8 && tab[tabd[l][0]][tabd[l][1] + 1] == 0) {
                             tab[tabd[l][0]][tabd[l][1] + 1] = tab[tabd[l][0]][tabd[l][1]] + 1;
                             tab2[tabd[l][0]][tabd[l][1] + 1] = tab2[tabd[l][0]][tabd[l][1]] + "," + (tabd[l][0]) + "_" + (tabd[l][1]);
                             tabd.push([tabd[l][0], tabd[l][1] + 1]);
                         }
-                        if (tabd[l][1] != 0 && tab[tabd[l][0]][tabd[l][1] - 1] == 0) { // w lewo
+                        if (tabd[l][1] != 0 && tab[tabd[l][0]][tabd[l][1] - 1] == 0) {
                             tab[tabd[l][0]][tabd[l][1] - 1] = tab[tabd[l][0]][tabd[l][1]] + 1;
                             tab2[tabd[l][0]][tabd[l][1] - 1] = tab2[tabd[l][0]][tabd[l][1]] + "," + (tabd[l][0]) + "_" + (tabd[l][1]);
                             tabd.push([tabd[l][0], tabd[l][1] - 1]);
                         }
                         if (tabd[l][0] != 0 && tab[tabd[l][0] - 1][tabd[l][1]] == "M") {
-                            console.log("DROGA")
+
                             tab2[tabd[l][0] - 1][tabd[l][1]] = tab2[tabd[l][0]][tabd[l][1]] + "," + (tabd[l][0]) + "_" + tabd[l][1];
-                            tabn = (tab2[tabd[l][0] - 1][tabd[l][1]]) + "," + gdziejestm;
+                            tabn = (tab2[tabd[l][0] - 1][tabd[l][1]]) + "," + poz_where;
                             break;
 
                         }
                         if (tabd[l][0] != 8 && tab[tabd[l][0] + 1][tabd[l][1]] == "M") {
-                            console.log("DROGA")
+
                             tab2[tabd[l][0] + 1][tabd[l][1]] = tab2[tabd[l][0]][tabd[l][1]] + "," + (tabd[l][0]) + "_" + tabd[l][1];
-                            tabn = tab2[tabd[l][0] + 1][tabd[l][1]] + "," + gdziejestm;
+                            tabn = tab2[tabd[l][0] + 1][tabd[l][1]] + "," + poz_where;
                             break;
                         }
                         if (tabd[l][1] != 8 && tab[tabd[l][0]][tabd[l][1] + 1] == "M") {
-                            console.log("DROGA")
+
                             tab2[tabd[l][0]][tabd[l][1] + 1] = tab2[tabd[l][0]][tabd[l][1]] + "," + (tabd[l][0]) + "_" + (tabd[l][1]);
-                            tabn = tab2[tabd[l][0]][tabd[l][1] + 1] + "," + gdziejestm;
+                            tabn = tab2[tabd[l][0]][tabd[l][1] + 1] + "," + poz_where;
                             break;
                         }
                         if (tabd[l][1] != 0 && tab[tabd[l][0]][tabd[l][1] - 1] == "M") {
-                            console.log("DROGA")
+
                             tab2[tabd[l][0]][tabd[l][1] - 1] = tab2[tabd[l][0]][tabd[l][1]] + "," + (tabd[l][0]) + "_" + (tabd[l][1]);
-                            tabn = tab2[tabd[l][0]][tabd[l][1] - 1] + "," + gdziejestm;
+                            tabn = tab2[tabd[l][0]][tabd[l][1] - 1] + "," + poz_where;
                             break;
                         }
 
                     }
-                } /// koniec fora
+                }
 
                 if (tabn == 0) {
-                    console.log("nie ma drogi");
-                    actual.style.width = "35px"; // ustawianie aktualnego klika na zwykly / wrocenie do normalnego rozmiaru
+                    actual.style.width = "35px";
                     actual.style.height = "35px";
                     actual.style.marginLeft = "7.5px";
                     tab[mpozx][mpozy] = 0;
                     for (var o = 0; o < n; o++) {
                         for (var oo = 0; oo < n; oo++) {
-                            tab2[o][oo] = []; // wyczyszczenie tabeli 2 
-                            if (tab[o][oo] > 0) { // wyczyszczenie tabeli z 1,2 itp
+                            tab2[o][oo] = [];
+                            if (tab[o][oo] > 0) {
                                 tab[o][oo] = 0;
                             }
                         }
                     }
-                    ilekul();
+                    f_count();
                 } else {
                     tabn = (tabn.split(","))
                     for (var ky = 0; ky < tabn.length; ky++) {
-                        var okienko2 = document.getElementById(tabn[ky]); // znalezenie id 
-                        okienko2.style.backgroundColor = "#fca294";
+                        var cell_3 = document.getElementById(tabn[ky]);
+                        cell_3.style.backgroundColor = "#fca294";
                     }
-                    setTimeout(function() { // przez sekunde wyswietla sie sciezka
+                    setTimeout(function() {
                         for (var ky = 0; ky < tabn.length; ky++) {
-                            var okienko2 = document.getElementById(tabn[ky]); // znalezenie id 
-                            okienko2.style.backgroundColor = "white";
+                            var cell_3 = document.getElementById(tabn[ky]);
+                            cell_3.style.backgroundColor = "white";
                         }
 
                     }, 700);
-                    tab[mpozx][mpozy] = tab[spozx][spozy]; // wpisanie do m  -s
-                    tab[spozx][spozy] = 0; // wyczyszczenie s
-                    //// wyczyszczenie tablicy z 1,2,3 itp .
+                    tab[mpozx][mpozy] = tab[spozx][spozy];
+                    tab[spozx][spozy] = 0;
                     for (var o = 0; o < n; o++) {
                         for (var oo = 0; oo < n; oo++) {
-                            tab2[o][oo] = []; // wyczyszczenie tabeli 2 
-
+                            tab2[o][oo] = [];
                             if (tab[o][oo] > 0) {
                                 tab[o][oo] = 0;
                             }
                         }
                     }
 
-                    wpisywanie();
-                    setTimeout(function() { // po 1 sekundzie wpisuja sie nowe kulki
-                        if (ilekulek >= 78) {
-                            zakonczenie = true;
-                            ilekul();
+                    f_rewrite();
+                    setTimeout(function() {
+                        if (count_balls >= 78) {
+                            finish_game = true;
+                            f_count();
                         }
-                        if (zakonczenie == false) {
-                            if (zbicie == false) {
+                        if (finish_game == false) {
+                            if (connection == false) {
                                 randomx();
                             }
-                            ilekul();
-                            wpisywanie();
+                            f_count();
+                            f_rewrite();
                         }
 
                     }, 700)
                 }
 
-            } // koniec droga 
-            ////////////////////////////////////////////////////////////////
-            var kflaga = false;
+            }
+            var b_flag = false;
             var ktabn = [];
 
-            function droga2() {
-                ///
-                if (kflaga == true) {
+            function f_way() {
+
+                if (b_flag == true) {
                     for (var by = 0; by < ktabn.length; by++) {
-                        var okienko66 = document.getElementById(ktabn[by]); // znalezenie id 
-                        okienko66.style.backgroundColor = "white";
+                        var cell_6 = document.getElementById(ktabn[by]);
+                        cell_6.style.backgroundColor = "white";
                     }
                 }
-                ///
-                kflaga = true;
-                var kliczba = 0;
-                var ktabd = []; // wpisywanie znalezionych liczb
-                ktabn = []; // najkrotsza droga 
-                kznajdzm();
-                kliczba++;
+
+                b_flag = true;
+                var balls_count = 0;
+                var ktabd = [];
+                ktabn = [];
+                f_find_way();
+                balls_count++;
                 kspozx = parseInt(spozx);
                 kspozy = parseInt(spozy[1]);
                 kmpozx = parseInt(kmpozx);
                 kmpozy = parseInt(kmpozy[1]);
                 ktabd.push([kspozx, kspozy])
-                if (kspozx != 0 && ktab[kspozx - 1][kspozy] == 0) { // do gory 
-                    ktab[kspozx - 1][kspozy] = kliczba;
-                    ktab2[kspozx - 1][kspozy] = kspozx + "_" + kspozy; //wpisanie do tab2
+                if (kspozx != 0 && ktab[kspozx - 1][kspozy] == 0) {
+                    ktab[kspozx - 1][kspozy] = balls_count;
+                    ktab2[kspozx - 1][kspozy] = kspozx + "_" + kspozy;
                     ktabd.push([kspozx - 1, kspozy])
                 }
                 if (kspozx != 0 && ktab[kspozx - 1][kspozy] == "M") {
                     ktabn = kspozx + "_" + kspozy + "," + (kspozx - 1) + "_" + kspozy;
                 }
-                if (kspozx != 8 && ktab[kspozx + 1][kspozy] == 0) { // w dol
-                    ktab[kspozx + 1][kspozy] = kliczba;
-                    ktab2[kspozx + 1][kspozy] = kspozx + "_" + kspozy; //wpisanie do tab2
+                if (kspozx != 8 && ktab[kspozx + 1][kspozy] == 0) {
+                    ktab[kspozx + 1][kspozy] = balls_count;
+                    ktab2[kspozx + 1][kspozy] = kspozx + "_" + kspozy;
                     ktabd.push([kspozx + 1, kspozy]);
                 }
                 if (kspozx != 8 && ktab[kspozx + 1][kspozy] == "M") {
                     ktabn = kspozx + "_" + kspozy + "," + (kspozx + 1) + "_" + kspozy;
                 }
-                if (kspozy != 0 && ktab[kspozx][kspozy - 1] == 0) { // w lewo
-                    ktab[kspozx][kspozy - 1] = kliczba;
-                    ktab2[kspozx][kspozy - 1] = kspozx + "_" + kspozy; //wpisanie do tab2
+                if (kspozy != 0 && ktab[kspozx][kspozy - 1] == 0) {
+                    ktab[kspozx][kspozy - 1] = balls_count;
+                    ktab2[kspozx][kspozy - 1] = kspozx + "_" + kspozy;
                     ktabd.push([kspozx, kspozy - 1]);
                 }
                 if (kspozy != 0 && ktab[kspozx][kspozy - 1] == "M") {
                     ktabn = kspozx + "_" + kspozy + "," + kspozx + "_" + (kspozy - 1);
                 }
-                if (kspozy != 8 && ktab[kspozx][kspozy + 1] == 0) { // w prawo
-                    ktab[kspozx][kspozy + 1] = kliczba;
-                    ktab2[kspozx][kspozy + 1] = kspozx + "_" + kspozy; //wpisanie do tab2
+                if (kspozy != 8 && ktab[kspozx][kspozy + 1] == 0) {
+                    ktab[kspozx][kspozy + 1] = balls_count;
+                    ktab2[kspozx][kspozy + 1] = kspozx + "_" + kspozy;
                     ktabd.push([kspozx, kspozy + 1]);
 
                 }
@@ -621,48 +608,48 @@
                 }
                 if (ktabn == 0) {
                     for (var l = 0; l < ktabd.length; l++) {
-                        if (ktabd[l][0] != 0 && ktab[ktabd[l][0] - 1][ktabd[l][1]] == 0) { // do gory
+                        if (ktabd[l][0] != 0 && ktab[ktabd[l][0] - 1][ktabd[l][1]] == 0) {
                             ktab[ktabd[l][0] - 1][ktabd[l][1]] = ktab[ktabd[l][0]][ktabd[l][1]] + 1;
-                            ktab2[ktabd[l][0] - 1][ktabd[l][1]] = ktab2[ktabd[l][0]][ktabd[l][1]] + "," + (ktabd[l][0]) + "_" + ktabd[l][1]; //wpisanie do tab2
+                            ktab2[ktabd[l][0] - 1][ktabd[l][1]] = ktab2[ktabd[l][0]][ktabd[l][1]] + "," + (ktabd[l][0]) + "_" + ktabd[l][1];
                             ktabd.push([ktabd[l][0] - 1, ktabd[l][1]]);
                         }
-                        if (ktabd[l][0] != 8 && ktab[ktabd[l][0] + 1][ktabd[l][1]] == 0) { // w dol
+                        if (ktabd[l][0] != 8 && ktab[ktabd[l][0] + 1][ktabd[l][1]] == 0) {
                             ktab[ktabd[l][0] + 1][ktabd[l][1]] = ktab[ktabd[l][0]][ktabd[l][1]] + 1;
                             ktab2[ktabd[l][0] + 1][ktabd[l][1]] = ktab2[ktabd[l][0]][ktabd[l][1]] + "," + (ktabd[l][0]) + "_" + ktabd[l][1];
                             ktabd.push([ktabd[l][0] + 1, ktabd[l][1]]);
                         }
-                        if (ktabd[l][1] != 8 && ktab[ktabd[l][0]][ktabd[l][1] + 1] == 0) { // w prawo
+                        if (ktabd[l][1] != 8 && ktab[ktabd[l][0]][ktabd[l][1] + 1] == 0) {
                             ktab[ktabd[l][0]][ktabd[l][1] + 1] = ktab[ktabd[l][0]][ktabd[l][1]] + 1;
                             ktab2[ktabd[l][0]][ktabd[l][1] + 1] = ktab2[ktabd[l][0]][ktabd[l][1]] + "," + (ktabd[l][0]) + "_" + (ktabd[l][1]);
                             ktabd.push([ktabd[l][0], ktabd[l][1] + 1]);
                         }
-                        if (ktabd[l][1] != 0 && ktab[ktabd[l][0]][ktabd[l][1] - 1] == 0) { // w lewo
+                        if (ktabd[l][1] != 0 && ktab[ktabd[l][0]][ktabd[l][1] - 1] == 0) {
                             ktab[ktabd[l][0]][ktabd[l][1] - 1] = ktab[ktabd[l][0]][ktabd[l][1]] + 1;
                             ktab2[ktabd[l][0]][ktabd[l][1] - 1] = ktab2[ktabd[l][0]][ktabd[l][1]] + "," + (ktabd[l][0]) + "_" + (ktabd[l][1]);
                             ktabd.push([ktabd[l][0], ktabd[l][1] - 1]);
                         }
                         if (ktabd[l][0] != 0 && ktab[ktabd[l][0] - 1][ktabd[l][1]] == "M") {
                             ktab2[ktabd[l][0] - 1][ktabd[l][1]] = ktab2[ktabd[l][0]][ktabd[l][1]] + "," + (ktabd[l][0]) + "_" + ktabd[l][1];
-                            ktabn = (ktab2[ktabd[l][0] - 1][ktabd[l][1]]) + "," + kgdziejestm;
+                            ktabn = (ktab2[ktabd[l][0] - 1][ktabd[l][1]]) + "," + poz_where_k;
                             break;
 
                         }
                         if (ktabd[l][0] != 8 && ktab[ktabd[l][0] + 1][ktabd[l][1]] == "M") {
                             ktab2[ktabd[l][0] + 1][ktabd[l][1]] = ktab2[ktabd[l][0]][ktabd[l][1]] + "," + (ktabd[l][0]) + "_" + ktabd[l][1];
-                            ktabn = (ktab2[ktabd[l][0] + 1][ktabd[l][1]]) + "," + kgdziejestm;
+                            ktabn = (ktab2[ktabd[l][0] + 1][ktabd[l][1]]) + "," + poz_where_k;
                             break;
                         }
                         if (ktabd[l][1] != 8 && ktab[ktabd[l][0]][ktabd[l][1] + 1] == "M") {
                             ktab2[ktabd[l][0]][ktabd[l][1] + 1] = ktab2[ktabd[l][0]][ktabd[l][1]] + "," + (ktabd[l][0]) + "_" + (ktabd[l][1]);
-                            ktabn = ktab2[ktabd[l][0]][ktabd[l][1] + 1] + "," + kgdziejestm;
+                            ktabn = ktab2[ktabd[l][0]][ktabd[l][1] + 1] + "," + poz_where_k;
                             break;
                         }
                         if (ktabd[l][1] != 0 && ktab[ktabd[l][0]][ktabd[l][1] - 1] == "M") {
                             ktab2[ktabd[l][0]][ktabd[l][1] - 1] = ktab2[ktabd[l][0]][ktabd[l][1]] + "," + (ktabd[l][0]) + "_" + (ktabd[l][1]);
-                            ktabn = ktab2[ktabd[l][0]][ktabd[l][1] - 1] + "," + kgdziejestm;
+                            ktabn = ktab2[ktabd[l][0]][ktabd[l][1] - 1] + "," + poz_where_k;
                             break;
                         }
-                    } /// koniec fora
+                    }
 
                 }
                 if (ktabn == 0) {
@@ -670,23 +657,19 @@
                 } else {
                     ktabn = (ktabn.split(","))
                     for (var py = 0; py < ktabn.length; py++) {
-                        var okienko4 = document.getElementById(ktabn[py]); // znalezenie id 
-                        okienko4.style.backgroundColor = "#fca294";
+                        var cell_4 = document.getElementById(ktabn[py]);
+                        cell_4.style.backgroundColor = "#fca294";
                     }
-                    // wyswietla sie sciezka
-
                 }
-
             }
             var points = 0;
             var tp = [];
 
-            function spraw() {
+            function f_check() {
 
-                for (var q = 0; q < n; q++) { //POZIOM // petla przechodzi przez wszystkie 8 wierszow
+                for (var q = 0; q < n; q++) {
                     for (var qq = 0; qq < n; qq++) {
                         if (tab[q][qq] != 0 && tab[q][qq] == tab[q][qq + 1] && tab[q][qq] == tab[q][qq + 2] && tab[q][qq] == tab[q][qq + 3] && tab[q][qq] == tab[q][qq + 4] && tab[q][qq] == tab[q][qq + 5] && tab[q][qq] == tab[q][qq + 6] && tab[q][qq] == tab[q][qq + 7] && tab[q][qq] == tab[q][qq + 8]) {
-                            console.log("9 poziom")
                             tp.push(q + "_" + qq);
                             tp.push(q + "_" + (qq + 1))
                             tp.push(q + "_" + (qq + 2))
@@ -699,7 +682,6 @@
                             break;
                         }
                         if (tab[q][qq] != 0 && tab[q][qq] == tab[q][qq + 1] && tab[q][qq] == tab[q][qq + 2] && tab[q][qq] == tab[q][qq + 3] && tab[q][qq] == tab[q][qq + 4] && tab[q][qq] == tab[q][qq + 5] && tab[q][qq] == tab[q][qq + 6] && tab[q][qq] == tab[q][qq + 7]) {
-                            console.log("8 poziom")
                             tp.push(q + "_" + qq);
                             tp.push(q + "_" + (qq + 1))
                             tp.push(q + "_" + (qq + 2))
@@ -711,7 +693,6 @@
                             break;
                         }
                         if (tab[q][qq] != 0 && tab[q][qq] == tab[q][qq + 1] && tab[q][qq] == tab[q][qq + 2] && tab[q][qq] == tab[q][qq + 3] && tab[q][qq] == tab[q][qq + 4] && tab[q][qq] == tab[q][qq + 5] && tab[q][qq] == tab[q][qq + 6]) {
-                            console.log("7 poziom")
                             tp.push(q + "_" + qq);
                             tp.push(q + "_" + (qq + 1))
                             tp.push(q + "_" + (qq + 2))
@@ -722,7 +703,6 @@
                             break;
                         }
                         if (tab[q][qq] != 0 && tab[q][qq] == tab[q][qq + 1] && tab[q][qq] == tab[q][qq + 2] && tab[q][qq] == tab[q][qq + 3] && tab[q][qq] == tab[q][qq + 4] && tab[q][qq] == tab[q][qq + 5]) {
-                            console.log("6 poziom")
                             tp.push(q + "_" + qq);
                             tp.push(q + "_" + (qq + 1))
                             tp.push(q + "_" + (qq + 2))
@@ -732,7 +712,6 @@
                             break;
                         }
                         if (tab[q][qq] != 0 && tab[q][qq] == tab[q][qq + 1] && tab[q][qq] == tab[q][qq + 2] && tab[q][qq] == tab[q][qq + 3] && tab[q][qq] == tab[q][qq + 4]) {
-                            console.log("5 poziom")
                             tp.push(q + "_" + qq);
                             tp.push(q + "_" + (qq + 1))
                             tp.push(q + "_" + (qq + 2))
@@ -740,15 +719,13 @@
                             tp.push(q + "_" + (qq + 4))
                             break;
                         }
-
                     }
-
-                } //koniec glownego fora 
+                }
                 var flag = true;
-                for (var qp = 0; qp < n; qp++) { //PION // petla przechodzi przez wszystkie 8 wierszow
+                for (var qp = 0; qp < n; qp++) {
                     for (var qqp = 0; qqp < n; qqp++) {
                         if (flag == true && qp == 0 && tab[qp][qqp] != 0 && tab[qp][qqp] == tab[qp + 1][qqp] && tab[qp][qqp] == tab[qp + 2][qqp] && tab[qp][qqp] == tab[qp + 3][qqp] && tab[qp][qqp] == tab[qp + 4][qqp] && tab[qp][qqp] == tab[qp + 5][qqp] && tab[qp][qqp] == tab[qp + 6][qqp] && tab[qp][qqp] == tab[qp + 7][qqp] && tab[qp][qqp] == tab[qp + 8][qqp]) {
-                            console.log("9 pion")
+
                             tp.push(qp + "_" + qqp);
                             tp.push((qp + 1) + "_" + (qqp))
                             tp.push((qp + 2) + "_" + (qqp))
@@ -761,7 +738,7 @@
                             flag = false;
                         }
                         if (flag == true && qp <= 1 && tab[qp][qqp] != 0 && tab[qp][qqp] == tab[qp + 1][qqp] && tab[qp][qqp] == tab[qp + 2][qqp] && tab[qp][qqp] == tab[qp + 3][qqp] && tab[qp][qqp] == tab[qp + 4][qqp] && tab[qp][qqp] == tab[qp + 5][qqp] && tab[qp][qqp] == tab[qp + 6][qqp] && tab[qp][qqp] == tab[qp + 7][qqp]) {
-                            console.log("8 pion ")
+
                             tp.push(qp + "_" + qqp);
                             tp.push((qp + 1) + "_" + (qqp))
                             tp.push((qp + 2) + "_" + (qqp))
@@ -773,7 +750,7 @@
                             flag = false;
                         }
                         if (flag == true && qp <= 2 && tab[qp][qqp] != 0 && tab[qp][qqp] == tab[qp + 1][qqp] && tab[qp][qqp] == tab[qp + 2][qqp] && tab[qp][qqp] == tab[qp + 3][qqp] && tab[qp][qqp] == tab[qp + 4][qqp] && tab[qp][qqp] == tab[qp + 5][qqp] && tab[qp][qqp] == tab[qp + 6][qqp]) {
-                            console.log("7 pion")
+
                             tp.push(qp + "_" + qqp);
                             tp.push((qp + 1) + "_" + (qqp))
                             tp.push((qp + 2) + "_" + (qqp))
@@ -784,7 +761,7 @@
                             flag = false;
                         }
                         if (flag == true && qp <= 3 && tab[qp][qqp] != 0 && tab[qp][qqp] == tab[qp + 1][qqp] && tab[qp][qqp] == tab[qp + 2][qqp] && tab[qp][qqp] == tab[qp + 3][qqp] && tab[qp][qqp] == tab[qp + 4][qqp] && tab[qp][qqp] == tab[qp + 5][qqp]) {
-                            console.log("6 pion")
+
                             tp.push(qp + "_" + qqp);
                             tp.push((qp + 1) + "_" + (qqp))
                             tp.push((qp + 2) + "_" + (qqp))
@@ -794,7 +771,7 @@
                             flag = false;
                         }
                         if (flag == true && qp <= 4 && tab[qp][qqp] != 0 && tab[qp][qqp] == tab[qp + 1][qqp] && tab[qp][qqp] == tab[qp + 2][qqp] && tab[qp][qqp] == tab[qp + 3][qqp] && tab[qp][qqp] == tab[qp + 4][qqp]) {
-                            console.log("5 pion")
+
                             tp.push(qp + "_" + qqp);
                             tp.push((qp + 1) + "_" + (qqp))
                             tp.push((qp + 2) + "_" + (qqp))
@@ -805,12 +782,12 @@
 
                     }
 
-                } //koniec glownego fora 
+                }
                 var flag1 = true;
-                for (var q = 0; q < n; q++) { //UKOS W PRAWO DOL // petla przechodzi przez wszystkie 8 wierszow
+                for (var q = 0; q < n; q++) {
                     for (var qq = 0; qq < n; qq++) {
                         if (flag1 == true && q == 0 && tab[q][qq] != 0 && tab[q][qq] == tab[q + 1][qq + 1] && tab[q][qq] == tab[q + 2][qq + 2] && tab[q][qq] == tab[q + 3][qq + 3] && tab[q][qq] == tab[q + 4][qq + 4] && tab[q][qq] == tab[q + 5][qq + 5] && tab[q][qq] == tab[q + 6][qq + 6] && tab[q][qq] == tab[q + 7][qq + 7] && tab[q][qq] == tab[q + 8][qq + 8]) {
-                            console.log("9 ukos p")
+
                             tp.push(q + "_" + qq);
                             tp.push((q + 1) + "_" + (qq + 1))
                             tp.push((q + 2) + "_" + (qq + 2))
@@ -823,7 +800,7 @@
                             flag1 = false;
                         }
                         if (flag1 == true && q <= 1 && tab[q][qq] != 0 && tab[q][qq] == tab[q + 1][qq + 1] && tab[q][qq] == tab[q + 2][qq + 2] && tab[q][qq] == tab[q + 3][qq + 3] && tab[q][qq] == tab[q + 4][qq + 4] && tab[q][qq] == tab[q + 5][qq + 5] && tab[q][qq] == tab[q + 6][qq + 6] && tab[q][qq] == tab[q + 7][qq + 7]) {
-                            console.log("8 ukos p")
+
                             tp.push(q + "_" + qq);
                             tp.push((q + 1) + "_" + (qq + 1))
                             tp.push((q + 2) + "_" + (qq + 2))
@@ -835,7 +812,7 @@
                             flag1 = false;
                         }
                         if (flag1 == true && q <= 2 && tab[q][qq] != 0 && tab[q][qq] == tab[q + 1][qq + 1] && tab[q][qq] == tab[q + 2][qq + 2] && tab[q][qq] == tab[q + 3][qq + 3] && tab[q][qq] == tab[q + 4][qq + 4] && tab[q][qq] == tab[q + 5][qq + 5] && tab[q][qq] == tab[q + 6][qq + 6]) {
-                            console.log("7 ukos p")
+
                             tp.push(q + "_" + qq);
                             tp.push((q + 1) + "_" + (qq + 1))
                             tp.push((q + 2) + "_" + (qq + 2))
@@ -846,7 +823,7 @@
                             flag1 = false;
                         }
                         if (flag1 == true && q <= 3 && tab[q][qq] != 0 && tab[q][qq] == tab[q + 1][qq + 1] && tab[q][qq] == tab[q + 2][qq + 2] && tab[q][qq] == tab[q + 3][qq + 3] && tab[q][qq] == tab[q + 4][qq + 4] && tab[q][qq] == tab[q + 5][qq + 5]) {
-                            console.log("6 ukos p")
+
                             tp.push(q + "_" + qq);
                             tp.push((q + 1) + "_" + (qq + 1))
                             tp.push((q + 2) + "_" + (qq + 2))
@@ -856,7 +833,7 @@
                             flag1 = false;
                         }
                         if (flag1 == true && q <= 4 && tab[q][qq] != 0 && tab[q][qq] == tab[q + 1][qq + 1] && tab[q][qq] == tab[q + 2][qq + 2] && tab[q][qq] == tab[q + 3][qq + 3] && tab[q][qq] == tab[q + 4][qq + 4]) {
-                            console.log("5 ukos p")
+
                             tp.push(q + "_" + qq);
                             tp.push((q + 1) + "_" + (qq + 1))
                             tp.push((q + 2) + "_" + (qq + 2))
@@ -865,13 +842,11 @@
                             flag1 = false;
                         }
                     }
-
-                } //koniec glownego fora 
+                }
                 var flag2 = true;
-                for (var q = 0; q < n; q++) { //UKOS W LEWO GORA // petla przechodzi przez wszystkie 8 wierszow
+                for (var q = 0; q < n; q++) {
                     for (var qq = 8; qq >= 0; qq--) {
                         if (flag2 == true && q == 0 && tab[q][qq] != 0 && tab[q][qq] == tab[q + 1][qq - 1] && tab[q][qq] == tab[q + 2][qq - 2] && tab[q][qq] == tab[q + 3][qq - 3] && tab[q][qq] == tab[q + 4][qq - 4] && tab[q][qq] == tab[q + 5][qq - 5] && tab[q][qq] == tab[q + 6][qq - 6] && tab[q][qq] == tab[q + 7][qq - 7] && tab[q][qq] == tab[q + 8][qq - 8]) {
-                            console.log("9 ukos l")
                             tp.push(q + "_" + qq);
                             tp.push((q + 1) + "_" + (qq - 1))
                             tp.push((q + 2) + "_" + (qq - 2))
@@ -884,7 +859,7 @@
                             flag2 = false;
                         }
                         if (flag2 == true && q <= 1 && tab[q][qq] != 0 && tab[q][qq] == tab[q + 1][qq - 1] && tab[q][qq] == tab[q + 2][qq - 2] && tab[q][qq] == tab[q + 3][qq - 3] && tab[q][qq] == tab[q + 4][qq - 4] && tab[q][qq] == tab[q + 5][qq - 5] && tab[q][qq] == tab[q + 6][qq - 6] && tab[q][qq] == tab[q + 7][qq - 7]) {
-                            console.log("8 ukos l")
+
                             tp.push(q + "_" + qq);
                             tp.push((q + 1) + "_" + (qq - 1))
                             tp.push((q + 2) + "_" + (qq - 2))
@@ -896,7 +871,7 @@
                             flag2 = false;
                         }
                         if (flag2 == true && q <= 2 && tab[q][qq] != 0 && tab[q][qq] == tab[q + 1][qq - 1] && tab[q][qq] == tab[q + 2][qq - 2] && tab[q][qq] == tab[q + 3][qq - 3] && tab[q][qq] == tab[q + 4][qq - 4] && tab[q][qq] == tab[q + 5][qq - 5] && tab[q][qq] == tab[q + 6][qq - 6]) {
-                            console.log("7 ukos l")
+
                             tp.push(q + "_" + qq);
                             tp.push((q + 1) + "_" + (qq - 1))
                             tp.push((q + 2) + "_" + (qq - 2))
@@ -907,7 +882,7 @@
                             flag2 = false;
                         }
                         if (flag2 == true && q <= 3 && tab[q][qq] != 0 && tab[q][qq] == tab[q + 1][qq - 1] && tab[q][qq] == tab[q + 2][qq - 2] && tab[q][qq] == tab[q + 3][qq - 3] && tab[q][qq] == tab[q + 4][qq - 4] && tab[q][qq] == tab[q + 5][qq - 5]) {
-                            console.log("6 ukos l")
+
                             tp.push(q + "_" + qq);
                             tp.push((q + 1) + "_" + (qq - 1))
                             tp.push((q + 2) + "_" + (qq - 2))
@@ -917,7 +892,7 @@
                             flag2 = false;
                         }
                         if (flag2 == true && q <= 4 && tab[q][qq] != 0 && tab[q][qq] == tab[q + 1][qq - 1] && tab[q][qq] == tab[q + 2][qq - 2] && tab[q][qq] == tab[q + 3][qq - 3] && tab[q][qq] == tab[q + 4][qq - 4]) {
-                            console.log("5 ukos l")
+
                             tp.push(q + "_" + qq);
                             tp.push((q + 1) + "_" + (qq - 1))
                             tp.push((q + 2) + "_" + (qq - 2))
@@ -927,30 +902,28 @@
                         }
                     }
 
-                } //koniec glownego fora 
+                }
                 div3.innerText = "Punkty : " + (points);
-                zbicie = false;
+                connection = false;
                 if (tp.length > 0) {
-                    //////////////////////// zeby sprawdzalo czy nie ma 2 takich samych miejsc // wtedy gdy zbija sie grupe kulek
-                    var a = "";
-                    var licznik = 0;
+                    var a_a = "";
+                    var counter = 0;
                     var max = 1;
                     for (var b = 0; b < tp.length; b++) {
-                        a = tp[b];
+                        a_a = tp[b];
                         for (var bb = 0; bb < tp.length; bb++) {
                             if (tp[bb] == tp[b]) {
-                                licznik++
+                                counter++
                             }
 
-                            if (licznik > max) {
-                                max = licznik;
+                            if (counter > max) {
+                                max = counter;
                             }
 
                         }
-                        licznik = 0;
+                        counter = 0;
                     }
                     points -= (max - 1);
-                    ///////////
                     points += tp.length;
                     div3.innerText = "Punkty : " + (points);
                     for (var r = 0; r < tp.length; r++) {
@@ -958,10 +931,10 @@
                         tab[tp[r][0]][tp[r][1]] = 0;
                     }
                     tp = [];
-                    zbicie = true;
+                    connection = true;
                 }
-            } // koniec spraw
-            spraw();
+            }
+            f_check();
         });
     </script>
 </head>

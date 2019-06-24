@@ -6,15 +6,6 @@
     <title>KULKI GAJDA</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-38766279-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-38766279-1');
-</script>
     <style>
         #glowny {
             width: 500px;
@@ -22,12 +13,12 @@
             float: left;
             position: relative;
         }
-
+        
         table {
             border-collapse: collapse;
             background-color: g
         }
-
+        
         td {
             border: 1px solid black;
             width: 50px;
@@ -36,7 +27,7 @@
             text-align: center;
             position: relative;
         }
-
+        
         div.orange {
             margin-left: 7.5px;
             width: 35px;
@@ -45,7 +36,7 @@
             border-radius: 50%;
             border: 1px solid black;
         }
-
+        
         div.green {
             margin-left: 7.5px;
             width: 35px;
@@ -54,7 +45,7 @@
             border-radius: 50%;
             border: 1px solid black;
         }
-
+        
         div.blue {
             margin-left: 7.5px;
             width: 35px;
@@ -63,7 +54,7 @@
             border-radius: 50%;
             border: 1px solid black;
         }
-
+        
         div.red {
             margin-left: 7.5px;
             width: 35px;
@@ -72,7 +63,7 @@
             border-radius: 50%;
             border: 1px solid black;
         }
-
+        
         div.grey {
             margin-left: 7.5px;
             width: 35px;
@@ -81,7 +72,7 @@
             border-radius: 50%;
             border: 1px solid black;
         }
-
+        
         div.pink {
             margin-left: 7.5px;
             width: 35px;
@@ -90,7 +81,7 @@
             border-radius: 50%;
             border: 1px solid black;
         }
-
+        
         div.yellow {
             margin-left: 7.5px;
             width: 35px;
@@ -99,7 +90,7 @@
             border-radius: 50%;
             border: 1px solid black;
         }
-
+        
         #preview {
             float: left;
             font-size: 20px;
@@ -109,7 +100,7 @@
             height: 60px;
             padding: 3px;
         }
-
+        
         #points {
             width: 230px;
             height: 60px;
@@ -121,17 +112,18 @@
             font-size: 32px;
             font-weight: bold;
         }
-        #opis{
+        
+        #opis {
             width: 250px;
             height: 360px;
             position: absolute;
             border: 3px solid black;
-            top:150px;
-            left:500px;
+            top: 150px;
+            left: 500px;
             font-size: 24px;
             padding: 3px;
-            
         }
+        
         #koniec {
             font-size: 40px;
             font-weight: bold;
@@ -142,7 +134,7 @@
         }
     </style>
     <script>
-        document.addEventListener("DOMContentLoaded", function (event) {
+        document.addEventListener("DOMContentLoaded", function(event) {
             var gdziejestm = 0;
             var kgdziejestm = 0;
             var tab = []; // tablica z wartosciami 
@@ -186,7 +178,7 @@
             var div69 = document.createElement("div")
             div69.id = ("opis");
             div.appendChild(div69);
-            div69.innerText+="Gra polega na układaniu kulek w rzędzie. Gracz układa po pięć (lub więcej) kulek o tym samym kolorze w rzędzie (poziomo, pionowo, bądź po skosie). Gracz może przemieszczać kulki na dowolne pole, do którego może dojść kulka (kulka nie porusza się po skosie).";
+            div69.innerText += "Gra polega na układaniu kulek w rzędzie. Gracz układa po pięć (lub więcej) kulek o tym samym kolorze w rzędzie (poziomo, pionowo, bądź po skosie). Gracz może przemieszczać kulki na dowolne pole, do którego może dojść kulka (kulka nie porusza się po skosie).";
             var tab3 = []; //tablica do preview kulek 
             for (var z = 0; z < 3; z++) {
                 var prevk = document.createElement("div");
@@ -201,6 +193,7 @@
             var div4 = document.createElement("div")
             div4.id = ("koniec");
             document.body.appendChild(div4);
+
             function ilekul() {
                 ilekulek = 0
                 for (var iii = 0; iii < n; iii++) {
@@ -212,8 +205,7 @@
                 }
                 if (zakonczenie == true) {
                     div4.innerText += "KONIEC";
-                }
-                else {
+                } else {
                     sim();
                 }
 
@@ -223,13 +215,14 @@
             var div3 = document.createElement("div");
             div3.id = ("points");
             document.body.appendChild(div3);
+
             function wpisywanie() {
                 for (var i = 0; i < n; i++) {
                     for (var ii = 0; ii < n; ii++) {
-                        var okienko = document.getElementById(i + "_" + ii);// znalezenie id 
+                        var okienko = document.getElementById(i + "_" + ii); // znalezenie id 
                         okienko.innerText = tab[i][ii]; // wypisanie danych z tabeli do tabeli widocznej
                         var kolory = document.createElement("div"); // stworzenie diva do kulek
-                        if (tab[i][ii] == 0) {// jesli 0 to puste pole
+                        if (tab[i][ii] == 0) { // jesli 0 to puste pole
                             okienko.innerText = "";
                         }
                         if (tab[i][ii] == -1) { // ORANGE
@@ -271,6 +264,7 @@
                 }
             }
             var tabkol = []
+
             function randomx() { // losowe x 
                 if (flaga == true) { // zrobi sie tylko raz / przy pierwszym losowaniu kulek 
                     for (var e = 0; e < 3; e++) {
@@ -286,7 +280,7 @@
                         var a = Math.floor((Math.random() * (n)));
                         var b = Math.floor((Math.random() * (n)));
                     }
-                    tab[a][b] = (tabkol[w] * (-1));// wpisanie koloru
+                    tab[a][b] = (tabkol[w] * (-1)); // wpisanie koloru
                 }
                 tabkol.splice(0, 3); // wyczyszczenie tablicy
                 for (var c = 0; c < 3; c++) {
@@ -317,7 +311,7 @@
                     }
                 };
 
-            }//koniec randomx 
+            } //koniec randomx 
             randomx();
             wpisywanie();
             var spozx = 0;
@@ -335,14 +329,14 @@
                         {
                             0;
                         }
-                        
+
 
                         if (tab[i][ii] != 0) { // jesli nie to dajemy onclicka / czyli onclick dziala na kulkach
                             if (((i == 8 && ii != 0 && ii != 8) && (tab[i - 1][ii] == 0 || tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0)) || ((i == 8 && ii == 8) && (tab[i - 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((i == 8 && ii == 0) && (tab[i - 1][ii] == 0 || tab[i][ii + 1] == 0)) || ((ii == 8 && i != 0 && i != 8) && (tab[i - 1][ii] == 0 || tab[i + 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((ii == 0 && i != 0 && i != 8) && (tab[i - 1][ii] == 0 || tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0)) || ((i == 0 && ii != 0 && ii != 8) && (tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0)) || ((i == 0 && ii == 8) && (tab[i + 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((i == 0 && ii == 0) && (tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0)) || (i != 0 && i != 8 && ii != 0 && ii != 8) && (tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0 || tab[i + 1][ii] == 0 || tab[i - 1][ii] == 0)) { // zeby nie dalo sie kliknac kulki ktora nie ma mozliwego ruchu
 
-                                var okienko = document.getElementById(i + "_" + ii);// znalezenie id 
+                                var okienko = document.getElementById(i + "_" + ii); // znalezenie id 
 
-                                okienko.onclick = function () { // funckja on click
+                                okienko.onclick = function() { // funckja on click
                                     klik++;
                                     if (klik == 1) { //wpisanie do tablicy S
                                         var s = this.id;
@@ -357,19 +351,19 @@
                                         ////////  PREVIEW                    
 
                                         var okienko8 = document.getElementById(s)
-                                        okienko8.onmouseover = function () {
-                                            for (var by = 0; by < ktabn.length; by++) {
-                                                var okienko66 = document.getElementById(ktabn[by]);// znalezenie id 
-                                                okienko66.style.backgroundColor = "white";
+                                        okienko8.onmouseover = function() {
+                                                for (var by = 0; by < ktabn.length; by++) {
+                                                    var okienko66 = document.getElementById(ktabn[by]); // znalezenie id 
+                                                    okienko66.style.backgroundColor = "white";
+                                                }
                                             }
-                                        }
-                                        ////////////////////////////////////  OVER KLIK
+                                            ////////////////////////////////////  OVER KLIK
                                         for (var s = 0; s < n; s++) {
                                             for (var ss = 0; ss < n; ss++) {
                                                 if (tab[s][ss] == 0) {
                                                     var okienko1 = document.getElementById(s + "_" + ss);
 
-                                                    okienko1.onmouseover = function () {
+                                                    okienko1.onmouseover = function() {
                                                         for (var s = 0; s < n; s++) {
                                                             ktab[s] = tab[s].slice(0);
                                                             ktab2[s] = tab[s].slice(0);
@@ -399,10 +393,10 @@
 
                                                 if (((i == 8 && ii != 0 && ii != 8) && (tab[i - 1][ii] == 0 || tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0)) || ((i == 8 && ii == 8) && (tab[i - 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((i == 8 && ii == 0) && (tab[i - 1][ii] == 0 || tab[i][ii + 1] == 0)) || ((ii == 8 && i != 0 && i != 8) && (tab[i - 1][ii] == 0 || tab[i + 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((ii == 0 && i != 0 && i != 8) && (tab[i - 1][ii] == 0 || tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0)) || ((i == 0 && ii != 0 && ii != 8) && (tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0)) || ((i == 0 && ii == 8) && (tab[i + 1][ii] == 0 || tab[i][ii - 1] == 0)) || ((i == 0 && ii == 0) && (tab[i + 1][ii] == 0 || tab[i][ii + 1] == 0)) || (i != 0 && i != 8 && ii != 0 && ii != 8) && (tab[i][ii + 1] == 0 || tab[i][ii - 1] == 0 || tab[i + 1][ii] == 0 || tab[i - 1][ii] == 0)) { // przleaczenie miedzy wybranymi kulkami
                                                     var okienko7 = document.getElementById(i + "_" + ii);
-                                                    okienko7.onclick = function () { // zeby przelaczac miedzy kliknietymi s 
+                                                    okienko7.onclick = function() { // zeby przelaczac miedzy kliknietymi s 
 
                                                         for (var by = 0; by < ktabn.length; by++) {
-                                                            var okienko66 = document.getElementById(ktabn[by]);// znalezenie id 
+                                                            var okienko66 = document.getElementById(ktabn[by]); // znalezenie id 
                                                             okienko66.style.backgroundColor = "white";
                                                         }
 
@@ -412,9 +406,9 @@
                                                         var g = this.id;
 
                                                         var okienko81 = document.getElementById(g)
-                                                        okienko81.onmouseover = function () {
+                                                        okienko81.onmouseover = function() {
                                                             for (var by = 0; by < ktabn.length; by++) {
-                                                                var okienko81 = document.getElementById(ktabn[by]);// znalezenie id 
+                                                                var okienko81 = document.getElementById(ktabn[by]); // znalezenie id 
                                                                 okienko81.style.backgroundColor = "white";
                                                             }
                                                         }
@@ -439,7 +433,9 @@
                                                             for (var p = 0; p < n; p++) {
                                                                 for (var pp = 0; pp < n; pp++) {
                                                                     var okienko0 = document.getElementById(p + "_" + pp);
-                                                                    okienko0.onclick = function () { return false; }
+                                                                    okienko0.onclick = function() {
+                                                                        return false;
+                                                                    }
                                                                 }
                                                             } // wylaczenie funkcji on click
                                                             //////////////////////////////////////////////////////// WYLACZENIE OVERKLIKA
@@ -447,7 +443,7 @@
                                                                 for (var ss = 0; ss < n; ss++) {
 
                                                                     var okienko1 = document.getElementById(s + "_" + ss);
-                                                                    okienko1.onmouseover = function () {
+                                                                    okienko1.onmouseover = function() {
                                                                         0;
 
                                                                     }
@@ -462,7 +458,7 @@
                                                 }
                                                 if (tab[i][ii] == 0) {
                                                     var okienko = document.getElementById(i + "_" + ii);
-                                                    okienko.onclick = function () {
+                                                    okienko.onclick = function() {
                                                         var s = this.id;
                                                         mpozx = (s.split("_", 1));
                                                         mpozy = (s.split("_", 2));
@@ -470,8 +466,10 @@
 
                                                         for (var p = 0; p < n; p++) {
                                                             for (var pp = 0; pp < n; pp++) {
-                                                                var okienko = document.getElementById(p + "_" + pp);// znalezenie id 
-                                                                okienko.onclick = function () { return false; } // wylaczenie funkcji on click
+                                                                var okienko = document.getElementById(p + "_" + pp); // znalezenie id 
+                                                                okienko.onclick = function() {
+                                                                        return false;
+                                                                    } // wylaczenie funkcji on click
                                                             }
                                                         }
                                                         klik = 0;
@@ -481,7 +479,7 @@
                                                             for (var ss = 0; ss < n; ss++) {
 
                                                                 var okienko1 = document.getElementById(s + "_" + ss);
-                                                                okienko1.onmouseover = function () {
+                                                                okienko1.onmouseover = function() {
                                                                     0;
 
                                                                 }
@@ -506,7 +504,7 @@
                     }
 
                 }
-            }//koniec sim
+            } //koniec sim
             ilekul();
 
             function znajdzm() {
@@ -518,6 +516,7 @@
                     }
                 }
             }
+
             function kznajdzm() {
                 for (var i = 0; i < n; i++) {
                     for (var ii = 0; ii < n; ii++) {
@@ -530,9 +529,10 @@
 
 
             var liczba = 0
+
             function droga() {
                 var tabd = []; // wpisywanie znalezionych liczb
-                var tabn = [];// najkrotsza droga 
+                var tabn = []; // najkrotsza droga 
                 znajdzm();
                 liczba++;
                 spozx = parseInt(spozx);
@@ -543,7 +543,7 @@
 
                 if (spozx != 0 && tab[spozx - 1][spozy] == 0) { // do gory 
                     tab[spozx - 1][spozy] = liczba;
-                    tab2[spozx - 1][spozy] = spozx + "_" + spozy;//wpisanie do tab2
+                    tab2[spozx - 1][spozy] = spozx + "_" + spozy; //wpisanie do tab2
                     tabd.push([spozx - 1, spozy])
                 }
                 if (spozx != 0 && tab[spozx - 1][spozy] == "M") {
@@ -552,7 +552,7 @@
                 }
                 if (spozx != 8 && tab[spozx + 1][spozy] == 0) { // w dol
                     tab[spozx + 1][spozy] = liczba;
-                    tab2[spozx + 1][spozy] = spozx + "_" + spozy;//wpisanie do tab2
+                    tab2[spozx + 1][spozy] = spozx + "_" + spozy; //wpisanie do tab2
                     tabd.push([spozx + 1, spozy]);
                 }
                 if (spozx != 8 && tab[spozx + 1][spozy] == "M") {
@@ -561,7 +561,7 @@
                 }
                 if (spozy != 0 && tab[spozx][spozy - 1] == 0) { // w lewo
                     tab[spozx][spozy - 1] = liczba;
-                    tab2[spozx][spozy - 1] = spozx + "_" + spozy;//wpisanie do tab2
+                    tab2[spozx][spozy - 1] = spozx + "_" + spozy; //wpisanie do tab2
                     tabd.push([spozx, spozy - 1]);
                 }
                 if (spozy != 0 && tab[spozx][spozy - 1] == "M") {
@@ -570,7 +570,7 @@
                 }
                 if (spozy != 8 && tab[spozx][spozy + 1] == 0) { // w prawo
                     tab[spozx][spozy + 1] = liczba;
-                    tab2[spozx][spozy + 1] = spozx + "_" + spozy;//wpisanie do tab2
+                    tab2[spozx][spozy + 1] = spozx + "_" + spozy; //wpisanie do tab2
                     tabd.push([spozx, spozy + 1]);
 
                 }
@@ -582,7 +582,7 @@
                     for (var l = 0; l < tabd.length; l++) {
                         if (tabd[l][0] != 0 && tab[tabd[l][0] - 1][tabd[l][1]] == 0) { // do gory
                             tab[tabd[l][0] - 1][tabd[l][1]] = tab[tabd[l][0]][tabd[l][1]] + 1;
-                            tab2[tabd[l][0] - 1][tabd[l][1]] = tab2[tabd[l][0]][tabd[l][1]] + "," + (tabd[l][0]) + "_" + tabd[l][1];//wpisanie do tab2
+                            tab2[tabd[l][0] - 1][tabd[l][1]] = tab2[tabd[l][0]][tabd[l][1]] + "," + (tabd[l][0]) + "_" + tabd[l][1]; //wpisanie do tab2
                             tabd.push([tabd[l][0] - 1, tabd[l][1]]);
                         }
                         if (tabd[l][0] != 8 && tab[tabd[l][0] + 1][tabd[l][1]] == 0) { // w dol
@@ -627,7 +627,7 @@
                         }
 
                     }
-                }/// koniec fora
+                } /// koniec fora
 
                 if (tabn == 0) {
                     console.log("nie ma drogi");
@@ -644,22 +644,21 @@
                         }
                     }
                     ilekul();
-                }
-                else {
+                } else {
                     tabn = (tabn.split(","))
                     for (var ky = 0; ky < tabn.length; ky++) {
-                        var okienko2 = document.getElementById(tabn[ky]);// znalezenie id 
+                        var okienko2 = document.getElementById(tabn[ky]); // znalezenie id 
                         okienko2.style.backgroundColor = "#fca294";
                     }
-                    setTimeout(function () { // przez sekunde wyswietla sie sciezka
+                    setTimeout(function() { // przez sekunde wyswietla sie sciezka
                         for (var ky = 0; ky < tabn.length; ky++) {
-                            var okienko2 = document.getElementById(tabn[ky]);// znalezenie id 
+                            var okienko2 = document.getElementById(tabn[ky]); // znalezenie id 
                             okienko2.style.backgroundColor = "white";
                         }
 
                     }, 700);
                     tab[mpozx][mpozy] = tab[spozx][spozy]; // wpisanie do m  -s
-                    tab[spozx][spozy] = 0;// wyczyszczenie s
+                    tab[spozx][spozy] = 0; // wyczyszczenie s
                     //// wyczyszczenie tablicy z 1,2,3 itp .
                     for (var o = 0; o < n; o++) {
                         for (var oo = 0; oo < n; oo++) {
@@ -670,15 +669,15 @@
                             }
                         }
                     }
-                    
+
                     wpisywanie();
-                    setTimeout(function () { // po 1 sekundzie wpisuja sie nowe kulki
+                    setTimeout(function() { // po 1 sekundzie wpisuja sie nowe kulki
                         if (ilekulek >= 78) {
                             zakonczenie = true;
                             ilekul();
                         }
                         if (zakonczenie == false) {
-                            if(zbicie==false){
+                            if (zbicie == false) {
                                 randomx();
                             }
                             ilekul();
@@ -688,15 +687,16 @@
                     }, 700)
                 }
 
-            }// koniec droga 
+            } // koniec droga 
             ////////////////////////////////////////////////////////////////
             var kflaga = false;
             var ktabn = [];
+
             function droga2() {
                 ///
                 if (kflaga == true) {
                     for (var by = 0; by < ktabn.length; by++) {
-                        var okienko66 = document.getElementById(ktabn[by]);// znalezenie id 
+                        var okienko66 = document.getElementById(ktabn[by]); // znalezenie id 
                         okienko66.style.backgroundColor = "white";
                     }
                 }
@@ -704,7 +704,7 @@
                 kflaga = true;
                 var kliczba = 0;
                 var ktabd = []; // wpisywanie znalezionych liczb
-                ktabn = [];// najkrotsza droga 
+                ktabn = []; // najkrotsza droga 
                 kznajdzm();
                 kliczba++;
                 kspozx = parseInt(spozx);
@@ -714,7 +714,7 @@
                 ktabd.push([kspozx, kspozy])
                 if (kspozx != 0 && ktab[kspozx - 1][kspozy] == 0) { // do gory 
                     ktab[kspozx - 1][kspozy] = kliczba;
-                    ktab2[kspozx - 1][kspozy] = kspozx + "_" + kspozy;//wpisanie do tab2
+                    ktab2[kspozx - 1][kspozy] = kspozx + "_" + kspozy; //wpisanie do tab2
                     ktabd.push([kspozx - 1, kspozy])
                 }
                 if (kspozx != 0 && ktab[kspozx - 1][kspozy] == "M") {
@@ -722,7 +722,7 @@
                 }
                 if (kspozx != 8 && ktab[kspozx + 1][kspozy] == 0) { // w dol
                     ktab[kspozx + 1][kspozy] = kliczba;
-                    ktab2[kspozx + 1][kspozy] = kspozx + "_" + kspozy;//wpisanie do tab2
+                    ktab2[kspozx + 1][kspozy] = kspozx + "_" + kspozy; //wpisanie do tab2
                     ktabd.push([kspozx + 1, kspozy]);
                 }
                 if (kspozx != 8 && ktab[kspozx + 1][kspozy] == "M") {
@@ -730,7 +730,7 @@
                 }
                 if (kspozy != 0 && ktab[kspozx][kspozy - 1] == 0) { // w lewo
                     ktab[kspozx][kspozy - 1] = kliczba;
-                    ktab2[kspozx][kspozy - 1] = kspozx + "_" + kspozy;//wpisanie do tab2
+                    ktab2[kspozx][kspozy - 1] = kspozx + "_" + kspozy; //wpisanie do tab2
                     ktabd.push([kspozx, kspozy - 1]);
                 }
                 if (kspozy != 0 && ktab[kspozx][kspozy - 1] == "M") {
@@ -738,7 +738,7 @@
                 }
                 if (kspozy != 8 && ktab[kspozx][kspozy + 1] == 0) { // w prawo
                     ktab[kspozx][kspozy + 1] = kliczba;
-                    ktab2[kspozx][kspozy + 1] = kspozx + "_" + kspozy;//wpisanie do tab2
+                    ktab2[kspozx][kspozy + 1] = kspozx + "_" + kspozy; //wpisanie do tab2
                     ktabd.push([kspozx, kspozy + 1]);
 
                 }
@@ -749,7 +749,7 @@
                     for (var l = 0; l < ktabd.length; l++) {
                         if (ktabd[l][0] != 0 && ktab[ktabd[l][0] - 1][ktabd[l][1]] == 0) { // do gory
                             ktab[ktabd[l][0] - 1][ktabd[l][1]] = ktab[ktabd[l][0]][ktabd[l][1]] + 1;
-                            ktab2[ktabd[l][0] - 1][ktabd[l][1]] = ktab2[ktabd[l][0]][ktabd[l][1]] + "," + (ktabd[l][0]) + "_" + ktabd[l][1];//wpisanie do tab2
+                            ktab2[ktabd[l][0] - 1][ktabd[l][1]] = ktab2[ktabd[l][0]][ktabd[l][1]] + "," + (ktabd[l][0]) + "_" + ktabd[l][1]; //wpisanie do tab2
                             ktabd.push([ktabd[l][0] - 1, ktabd[l][1]]);
                         }
                         if (ktabd[l][0] != 8 && ktab[ktabd[l][0] + 1][ktabd[l][1]] == 0) { // w dol
@@ -788,16 +788,15 @@
                             ktabn = ktab2[ktabd[l][0]][ktabd[l][1] - 1] + "," + kgdziejestm;
                             break;
                         }
-                    }/// koniec fora
+                    } /// koniec fora
 
                 }
                 if (ktabn == 0) {
                     0;
-                }
-                else {
+                } else {
                     ktabn = (ktabn.split(","))
                     for (var py = 0; py < ktabn.length; py++) {
-                        var okienko4 = document.getElementById(ktabn[py]);// znalezenie id 
+                        var okienko4 = document.getElementById(ktabn[py]); // znalezenie id 
                         okienko4.style.backgroundColor = "#fca294";
                     }
                     // wyswietla sie sciezka
@@ -807,6 +806,7 @@
             }
             var points = 0;
             var tp = [];
+
             function spraw() {
 
                 for (var q = 0; q < n; q++) { //POZIOM // petla przechodzi przez wszystkie 8 wierszow
@@ -869,7 +869,7 @@
 
                     }
 
-                }//koniec glownego fora 
+                } //koniec glownego fora 
                 var flag = true;
                 for (var qp = 0; qp < n; qp++) { //PION // petla przechodzi przez wszystkie 8 wierszow
                     for (var qqp = 0; qqp < n; qqp++) {
@@ -931,11 +931,11 @@
 
                     }
 
-                }//koniec glownego fora 
+                } //koniec glownego fora 
                 var flag1 = true;
                 for (var q = 0; q < n; q++) { //UKOS W PRAWO DOL // petla przechodzi przez wszystkie 8 wierszow
                     for (var qq = 0; qq < n; qq++) {
-                        if (flag1 == true && q ==0 && tab[q][qq] != 0 && tab[q][qq] == tab[q + 1][qq + 1] && tab[q][qq] == tab[q + 2][qq + 2] && tab[q][qq] == tab[q + 3][qq + 3] && tab[q][qq] == tab[q + 4][qq + 4] && tab[q][qq] == tab[q + 5][qq + 5] && tab[q][qq] == tab[q + 6][qq + 6] && tab[q][qq] == tab[q + 7][qq + 7] && tab[q][qq] == tab[q + 8][qq + 8]) {
+                        if (flag1 == true && q == 0 && tab[q][qq] != 0 && tab[q][qq] == tab[q + 1][qq + 1] && tab[q][qq] == tab[q + 2][qq + 2] && tab[q][qq] == tab[q + 3][qq + 3] && tab[q][qq] == tab[q + 4][qq + 4] && tab[q][qq] == tab[q + 5][qq + 5] && tab[q][qq] == tab[q + 6][qq + 6] && tab[q][qq] == tab[q + 7][qq + 7] && tab[q][qq] == tab[q + 8][qq + 8]) {
                             console.log("9 ukos p")
                             tp.push(q + "_" + qq);
                             tp.push((q + 1) + "_" + (qq + 1))
@@ -992,11 +992,11 @@
                         }
                     }
 
-                }//koniec glownego fora 
+                } //koniec glownego fora 
                 var flag2 = true;
-                for (var q = 0; q <n; q++) { //UKOS W LEWO GORA // petla przechodzi przez wszystkie 8 wierszow
+                for (var q = 0; q < n; q++) { //UKOS W LEWO GORA // petla przechodzi przez wszystkie 8 wierszow
                     for (var qq = 8; qq >= 0; qq--) {
-                        if (flag2 == true && q ==0 && tab[q][qq] != 0 && tab[q][qq] == tab[q + 1][qq - 1] && tab[q][qq] == tab[q + 2][qq - 2] && tab[q][qq] == tab[q + 3][qq - 3] && tab[q][qq] == tab[q + 4][qq - 4] && tab[q][qq] == tab[q + 5][qq - 5] && tab[q][qq] == tab[q + 6][qq - 6] && tab[q][qq] == tab[q + 7][qq - 7] && tab[q][qq] == tab[q + 8][qq - 8]) {
+                        if (flag2 == true && q == 0 && tab[q][qq] != 0 && tab[q][qq] == tab[q + 1][qq - 1] && tab[q][qq] == tab[q + 2][qq - 2] && tab[q][qq] == tab[q + 3][qq - 3] && tab[q][qq] == tab[q + 4][qq - 4] && tab[q][qq] == tab[q + 5][qq - 5] && tab[q][qq] == tab[q + 6][qq - 6] && tab[q][qq] == tab[q + 7][qq - 7] && tab[q][qq] == tab[q + 8][qq - 8]) {
                             console.log("9 ukos l")
                             tp.push(q + "_" + qq);
                             tp.push((q + 1) + "_" + (qq - 1))
@@ -1053,9 +1053,9 @@
                         }
                     }
 
-                }//koniec glownego fora 
+                } //koniec glownego fora 
                 div3.innerText = "Punkty : " + (points);
-                zbicie=false;
+                zbicie = false;
                 if (tp.length > 0) {
                     //////////////////////// zeby sprawdzalo czy nie ma 2 takich samych miejsc // wtedy gdy zbija sie grupe kulek
                     var a = "";
@@ -1064,16 +1064,16 @@
                     for (var b = 0; b < tp.length; b++) {
                         a = tp[b];
                         for (var bb = 0; bb < tp.length; bb++) {
-                            if(tp[bb]==tp[b]){
+                            if (tp[bb] == tp[b]) {
                                 licznik++
                             }
-                               
-                            if(licznik > max){
+
+                            if (licznik > max) {
                                 max = licznik;
                             }
-                            
+
                         }
-                        licznik=0;
+                        licznik = 0;
                     }
                     points -= (max - 1);
                     ///////////
@@ -1086,7 +1086,7 @@
                     tp = [];
                     zbicie = true;
                 }
-            }// koniec spraw
+            } // koniec spraw
             spraw();
         });
     </script>

@@ -911,7 +911,7 @@
                     }
 
                 }
-                div3.innerText = "Punkty : " + (points);
+                div3.innerText = (points);
                 connection = false;
                 if (tp.length > 0) {
                     var a_a = "";
@@ -933,7 +933,7 @@
                     }
                     points -= (max - 1);
                     points += tp.length;
-                    div3.innerText = "Punkty : " + (points);
+                    div3.innerText = (points);
                     for (var r = 0; r < tp.length; r++) {
                         tp[r] = tp[r].split("_")
                         tab[tp[r][0]][tp[r][1]] = 0;

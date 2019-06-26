@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <link href='http://fonts.googleapis.com/css?family=Chonburi&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
             var poz_where = 0;
@@ -35,10 +36,11 @@
             var p_preview = document.createElement("div");
             p_preview.id = "p_preview";
             header.appendChild(p_preview);
-            p_preview.innerText = "Następne: "
+            p_preview.innerText = "Następne"
             var p_points = document.createElement("div");
             p_points.id = "p_points";
             header.appendChild(p_points);
+            p_points.innerText = "Punkty";
             var div = document.createElement("div");
             div.id = "div_main";
             document.body.appendChild(div);
@@ -60,7 +62,7 @@
             header.appendChild(div2);
             var div_description = document.createElement("div")
             div_description.id = ("description");
-            div.appendChild(div_description);
+            document.body.appendChild(div_description);
             div_description.innerText += "Gra polega na układaniu kulek w rzędzie. Gracz układa po pięć (lub więcej) kulek o tym samym kolorze w rzędzie (poziomo, pionowo, bądź po skosie). Gracz może przemieszczać kulki na dowolne pole, do którego może dojść kulka (kulka nie porusza się po skosie).";
             var tab3 = [];
             for (var z = 0; z < 3; z++) {
@@ -68,7 +70,6 @@
                 div2.appendChild(preview_k);
                 preview_k.style.display = "inline-block";
                 preview_k.style.margin = "5px";
-                preview_k.style.cssFloat = "right";
                 tab3.push(preview_k);
             }
             var count_balls = 0;

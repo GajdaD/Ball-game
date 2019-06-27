@@ -121,6 +121,7 @@ td {
     left: 50%;
     background-color: #D8C3A5;
     padding: 5px;
+    display: none;
 }
 
 div.orange {

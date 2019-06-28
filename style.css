@@ -113,14 +113,17 @@ td {
 }
 
 #finish_alert {
+    margin: 0 auto;
     width: 90%;
     font-size: 40px;
     font-weight: bold;
     color: rgb(151, 46, 39);
     background-color: #D8C3A5;
-    padding: 2px;
     display: none;
     border-radius: 15px 15px 15px 15px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    text-align: center;
 }
 
 div.orange {

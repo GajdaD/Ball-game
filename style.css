@@ -118,9 +118,9 @@ td {
     font-weight: bold;
     color: rgb(151, 46, 39);
     background-color: #D8C3A5;
-    padding: 10px;
-    /* display: none; */
-    border: 2px solid rgb(151, 46, 39);
+    padding: 2px;
+    display: none;
+    border-radius: 15px 15px 15px 15px;
 }
 
 div.orange {

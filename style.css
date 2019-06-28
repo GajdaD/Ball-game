@@ -113,15 +113,12 @@ td {
 }
 
 #finish_alert {
-    font-size: 60px;
+    font-size: 40px;
     font-weight: bold;
     color: rgb(151, 46, 39);
-    position: absolute;
-    top: 50%;
-    left: 40%;
     background-color: #D8C3A5;
     padding: 10px;
-    display: none;
+    /* display: none; */
     border: 2px solid rgb(151, 46, 39);
 }
 

@@ -6,4 +6,4 @@ The game consists of placing balls in a row. The player arranges five (or more) 
 https://gajdad.github.io/Ball-game/
 
 ## 
-![README screenshot](https://github.com/GajdaD/Memory-game/blob/master/img/rm_img.PNG)
+![README screenshot](https://github.com/GajdaD/Ball-game/blob/master/screen.PNG)
